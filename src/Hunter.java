@@ -199,4 +199,13 @@ public class Hunter {
 
         return -1;
     }
+
+    public void testMode() {
+        gold = 100;
+        addItem("water");
+        addItem("rope");
+        addItem("machete");
+        addItem("horse");
+        addItem("boat");
+    }
 }
