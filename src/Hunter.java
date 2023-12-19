@@ -8,6 +8,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] collection;
     private int gold;
 
     /**
@@ -19,6 +20,7 @@ public class Hunter {
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         kit = new String[5]; // only 5 possible items can be stored in kit
+        collection = new String[3];
         gold = startingGold;
     }
 
@@ -191,8 +193,38 @@ public class Hunter {
      * @return index of empty index, or -1 if not found.
      */
     private int emptyPositionInKit() {
-        for (int i = 0; i < kit.length; i++) {
-            if (kit[i] == null) {
+        for (int i = 0; i < collection.length; i++) {
+            if (collection[i] == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    public boolean addTreasure(String item) {
+        if (!item.equals("dust")) {
+            if (!hasItemInCollection(item)) {
+                int idx = emptyPositionInCollection();
+                collection[idx] = item;
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public boolean hasItemInCollection(String item) {
+        for (String tmpItem : collection) {
+            if (item.equals(tmpItem)) {
+                // early return
+                return true;
+            }
+        }
+
+        return false;
+    }
+    private int emptyPositionInCollection() {
+        for (int i = 0; i < collection.length; i++) {
+            if (collection[i] == null) {
                 return i;
             }
         }
@@ -200,12 +232,19 @@ public class Hunter {
         return -1;
     }
 
+    public int findItemInCollection(String item) {
+        for (int i = 0; i < collection.length; i++) {
+            String tmpItem = collection[i];
+
+            if (item.equals(tmpItem)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void testMode() {
         gold = 100; //starting gold
-        addItem("water"); //starting kit
-        addItem("rope");
-        addItem("machete");
-        addItem("horse");
-        addItem("boat");
+        kit = new String[]{"water", "rope", "machete", "horse", "boat"};
     }
 }
