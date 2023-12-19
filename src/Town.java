@@ -11,6 +11,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean hasDug;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -30,6 +31,7 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+        hasDug = false;
     }
 
     public String getLatestNews() {
@@ -64,7 +66,7 @@ public class Town {
             printMessage = "You used your " + item + " to cross the " + Colors.CYAN + terrain.getTerrainName() + Colors.RESET + ".";
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your " + item + " broke.";
+                printMessage += "\nUnfortunately, you lost your " + item + ".";
             }
 
             return true;
@@ -81,6 +83,7 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        printMessage = "You left the shop.";
     }
 
     /**
@@ -110,6 +113,30 @@ public class Town {
                 printMessage += "\nYou lost the brawl and pay " + goldDiff + Colors.YELLOW + " gold." + Colors.RESET;
                 hunter.changeGold(-goldDiff);
             }
+        }
+    }
+    public void digGold(){
+        double digChance = .50;
+        int goldDug = 0;
+        if (!hasDug){
+            if (hunter.hasItemInKit("shovel")){
+                if (Math.random() > digChance){
+                    goldDug = (int) (Math.random() * 20) + 1;
+                    System.out.println("You dug up " + goldDug + " gold!");
+                    hunter.changeGold(goldDug);
+                    hasDug = true;
+                }
+                else {
+                    System.out.println("You dug up dirt :| ");
+                    hasDug = true;
+                }
+            }
+            else {
+                System.out.println("You need a shovel to dig for gold!");
+            }
+        }
+        else {
+            System.out.println("You've already dug for gold in this here town");
         }
     }
 
