@@ -35,7 +35,7 @@ public class Hunter {
     public void changeGold(int modifier) {
         gold += modifier;
         if (gold < 0) {
-            ;
+            TreasureHunter.endGame();
         }
     }
 
@@ -201,8 +201,8 @@ public class Hunter {
     }
 
     public void testMode() {
-        gold = 100;
-        addItem("water");
+        gold = 100; //starting gold
+        addItem("water"); //starting kit
         addItem("rope");
         addItem("machete");
         addItem("boots");
