@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private static boolean endGame = false;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -53,7 +54,7 @@ public class TreasureHunter {
         if (hard.equals("y")) {
             hardMode = true;
         }
-        if (hard.equals("test")) {
+        if (hard.equals("test")) { //starts test mode
             hunter.testMode();
         }
     }
@@ -101,6 +102,10 @@ public class TreasureHunter {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
+            if (endGame) {
+                System.out.println(Colors.RED + "GAME OVER" + Colors.RESET);
+                break;
+            }
             System.out.println(hunter);
             System.out.println(currentTown);
             System.out.println("(B)uy something at the shop.");
@@ -135,5 +140,8 @@ public class TreasureHunter {
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
+    }
+    public static void endGame() { //ends the game
+        endGame = true;
     }
 }
