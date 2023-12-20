@@ -204,6 +204,10 @@ public class Town {
             } else {
                 printMessage = "You have already collected that treasure";
             }
+            if (hunter.hasItemInCollection("trophy") && hunter.hasItemInCollection("crown") && hunter.hasItemInCollection("gem")){
+                printMessage += "\nCongrats! You won the game";
+                TreasureHunter.endGame();
+            }
             isSearched = true;
         } else {
             printMessage = "You have already searched this town";
