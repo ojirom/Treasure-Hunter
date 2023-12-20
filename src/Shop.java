@@ -15,6 +15,8 @@ public class Shop {
     private static final int BOOTS_COST = 10;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
+    private static final int SWORD_COST = 0;
+    private boolean sMode;
 
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -28,8 +30,9 @@ public class Shop {
      *
      * @param markdown Percentage of markdown for selling items in decimal format.
      */
-    public Shop(double markdown) {
+    public Shop(double markdown, boolean sMode) {
         this.markdown = markdown;
+        this.sMode = sMode;
         customer = null; // is set in the enter method
     }
 
@@ -92,6 +95,9 @@ public class Shop {
         str += "Horse: " + HORSE_COST + " gold\n";
         str += "Boat: " + BOAT_COST + " gold\n";
 
+        if (sMode){
+            str += "Samurai Sword: " + SWORD_COST + " gold\n";
+        }
         return str;
     }
 

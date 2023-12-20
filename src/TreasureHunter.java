@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean sMode;
     private static boolean endGame = false;
 
     /**
@@ -26,6 +27,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        sMode = false;
     }
 
     /**
@@ -57,6 +59,10 @@ public class TreasureHunter {
         if (hard.equals("test")) { //starts test mode
             hunter.testMode();
         }
+        if (hard.equals("s")){
+            sMode = true;
+        }
+
     }
 
     /**
@@ -76,7 +82,7 @@ public class TreasureHunter {
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
-        Shop shop = new Shop(markdown);
+        Shop shop = new Shop(markdown, sMode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
