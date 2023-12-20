@@ -196,8 +196,8 @@ public class Hunter {
      * @return index of empty index, or -1 if not found.
      */
     private int emptyPositionInKit() {
-        for (int i = 0; i < collection.length; i++) {
-            if (collection[i] == null) {
+        for (int i = 0; i < kit.length; i++) {
+            if (kit[i] == null) {
                 return i;
             }
         }
@@ -267,6 +267,10 @@ public class Hunter {
         }
         printableCollection += Colors.RESET;
         return printableCollection;
+    }
+
+    public void easyMode() {
+        gold = 20;
     }
 
     public void testMode() {

@@ -16,6 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
+    private boolean easyMode;
     private boolean sMode;
     private static boolean endGame = false;
 
@@ -27,6 +28,7 @@ public class TreasureHunter {
         currentTown = null;
         hunter = null;
         hardMode = false;
+        easyMode = false;
         sMode = false;
     }
 
@@ -51,15 +53,19 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print("Hard mode? (y/n/test): ");
-        String hard = SCANNER.nextLine().toLowerCase();
-        if (hard.equals("y")) {
+        System.out.print("Difficulty? (e/n/h): ");
+        String difficulty = SCANNER.nextLine().toLowerCase();
+        if (difficulty.equals("h")) {
             hardMode = true;
         }
-        if (hard.equals("test")) { //starts test mode
+        if (difficulty.equals("e")) {
+            easyMode = true;
+            hunter.easyMode();
+        }
+        if (difficulty.equals("test")) { //starts test mode
             hunter.testMode();
         }
-        if (hard.equals("s")){
+        if (difficulty.equals("s")){
             sMode = true;
         }
 
@@ -78,6 +84,10 @@ public class TreasureHunter {
             // and the town is "tougher"
             toughness = 0.75;
         }
+        if (easyMode) {
+            markdown = 1;
+            toughness = 0.25;
+        }
 
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
@@ -87,7 +97,7 @@ public class TreasureHunter {
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, easyMode);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
