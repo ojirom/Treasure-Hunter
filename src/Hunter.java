@@ -19,7 +19,6 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[6]; // only 6 possible items can be stored in kit
         collection = new String[3];
         kit = new String[7]; // only 7 possible items can be stored in kit
         gold = startingGold;
@@ -152,6 +151,9 @@ public class Hunter {
         if (!kitIsEmpty()) {
             str += " and " + getInventory();
         }
+        if (!collectionIsEmpty()) {
+            str += "\nTreasures found: " + getCollection();
+        }
         return str;
     }
 
@@ -233,6 +235,16 @@ public class Hunter {
         return -1;
     }
 
+    private boolean collectionIsEmpty() {
+        for (String string : collection) {
+            if (string != null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public int findItemInCollection(String item) {
         for (int i = 0; i < collection.length; i++) {
             String tmpItem = collection[i];
@@ -242,6 +254,19 @@ public class Hunter {
             }
         }
         return -1;
+    }
+
+    public String getCollection() {
+        String printableCollection = Colors.YELLOW + "";
+        String space = " ";
+
+        for (String item : collection) {
+            if (item != null) {
+                printableCollection += item + space;
+            }
+        }
+        printableCollection += Colors.RESET;
+        return printableCollection;
     }
 
     public void testMode() {
