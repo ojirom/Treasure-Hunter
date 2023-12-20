@@ -11,7 +11,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
-    private boolean searched;
+    private boolean isSearched;
     private boolean hasDug;
 
     /**
@@ -33,7 +33,7 @@ public class Town {
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
 
-        searched = false;
+        isSearched = false;
         hasDug = false;
     }
 
@@ -193,7 +193,7 @@ public class Town {
     }
 
     public void huntForTreasure() {
-        if (!searched) {
+        if (!isSearched) {
             String treasure = generateTreasure();
             printMessage = "You found a " + treasure + "!";
             if (hunter.findItemInCollection(treasure) == -1) {
@@ -205,7 +205,7 @@ public class Town {
                 printMessage += "\nCongrats! You won the game";
                 TreasureHunter.endGame();
             }
-            searched = true;
+            isSearched = true;
         } else {
             printMessage = "You have already searched this town";
         }
