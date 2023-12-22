@@ -52,7 +52,7 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
+            if (cost == -1) {
                 System.out.println("We ain't got none of those.");
             } else {
                 System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
@@ -96,7 +96,7 @@ public class Shop {
         str += "Boat: " + BOAT_COST + " gold\n";
 
         if (sMode){
-            str += "Samurai Sword: " + SWORD_COST + " gold\n";
+            str += "Sword: " + SWORD_COST + " gold\n";
         }
         return str;
     }
@@ -108,7 +108,9 @@ public class Shop {
      */
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem)) {
+        if (customer.hasItemInKit("sword") && customer.buyItem(item, 0)) {
+            System.out.println("The sword intimidates the shopkeeper and he gives you the " + item + " freely");
+        } else if (customer.buyItem(item, costOfItem)) {
             System.out.println("Ye' got yerself a " + item + ". Come again soon.");
         } else {
             System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
@@ -165,8 +167,10 @@ public class Shop {
             return HORSE_COST;
         } else if (item.equals("boat")) {
             return BOAT_COST;
+        } else if (item.equals("sword") && sMode) {
+            return SWORD_COST;
         } else {
-            return 0;
+            return -1;
         }
     }
 
